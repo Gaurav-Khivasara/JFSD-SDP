@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.klef.jfsd.sdp.model.User;
 import com.klef.jfsd.sdp.service.AuthService;
 
+import java.util.Map;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
@@ -26,13 +28,13 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody User userReq) {
-		return ResponseEntity.ok(authService.authenticate(userReq));
+	public ResponseEntity<Map<String, String>> login(@RequestBody User userReq) {
+		return ResponseEntity.ok(Map.of("jwtToken", authService.authenticate(userReq)));
 	}
 	
 	@GetMapping("/test")
-	public ResponseEntity<String> test() {
-		return ResponseEntity.ok("<h2>You are Authenticated!</h2>");
+	public String test() {
+		return "<h2>You are Authenticated!</h2>";
 	}
 
 }
