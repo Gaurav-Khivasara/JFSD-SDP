@@ -1,6 +1,0 @@
-package com.klef.jfsd.sdp.config;
-
-@Component
-public class JwtAuthFilter extends OncePerRequestFilter {
-
-}
