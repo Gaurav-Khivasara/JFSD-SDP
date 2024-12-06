@@ -1,0 +1,5 @@
+package com.klef.jfsd.sdp.config;
+
+public class JwtAuthFilter {
+
+}

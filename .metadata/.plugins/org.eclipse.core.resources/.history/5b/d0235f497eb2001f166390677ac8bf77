@@ -1,0 +1,15 @@
+package com.klef.jfsd.sdp.dto;
+
+import com.klef.jfsd.sdp.model.ForgotPassword;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+public class ForgotPasswordDTO {
+	
+	private ForgotPassword forgotPassword;
+	private String msg;
+
+}
