@@ -1,0 +1,21 @@
+package com.klef.jfsd.sdp.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.klef.jfsd.sdp.model.User;
+import com.klef.jfsd.sdp.repository.UserRepo;
+
+public class UserDetailsImpl implements UserDetailsService {
+	
+	@Autowired
+	private UserRepo userRepo;
+
+	@Override
+	public User loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepo.findByUsername(username);
+	}
+	
+}

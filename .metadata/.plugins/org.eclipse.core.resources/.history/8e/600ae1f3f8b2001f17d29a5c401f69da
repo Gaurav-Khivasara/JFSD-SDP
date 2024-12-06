@@ -1,0 +1,10 @@
+package com.klef.jfsd.sdp.config;
+
+@Component
+public class JwtAuthFilter extends OncePerRequestFilter {
+	
+	@Override
+	protected void doFilterInternal() throws ServletException, IOException {
+	}
+
+}
