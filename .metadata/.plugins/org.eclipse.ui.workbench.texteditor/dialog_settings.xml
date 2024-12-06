@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="searchhistory">
+		<item value="user"/>
+		<item value="id"/>
+		<item value="808"/>
+		<item value="api/teacher"/>
+		<item value="EmailVerifc"/>
+		<item value="Verifc"/>
+		<item value="admin"/>
+	</list>
+	<list key="replacehistory">
+		<item value="api/teachers"/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="BHENDI"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="BHENDI"/>
+			<item value="email"/>
+			<item value="x - x"/>
+			<item value="x -"/>
+			<item value="x -x"/>
+			<item value="x-x"/>
+			<item value="xx "/>
+			<item value="xx"/>
+			<item value="Runni"/>
+			<item value="Runn"/>
+			<item value="Email Ser"/>
+			<item value="Run"/>
+			<item value="Emai"/>
+			<item value=":: e"/>
+			<item value=":: "/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="716"/>
+		<item key="DIALOG_Y_ORIGIN" value="203"/>
+		<item key="DIALOG_WIDTH" value="511"/>
+		<item key="DIALOG_HEIGHT" value="523"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

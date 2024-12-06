@@ -1,0 +1,44 @@
+package com.klef.jfsd.sdp.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.klef.jfsd.sdp.dto.EmailVerificationDTO;
+import com.klef.jfsd.sdp.dto.TokenSuccessDTO;
+import com.klef.jfsd.sdp.model.EmailVerification;
+import com.klef.jfsd.sdp.model.ForgotPassword;
+import com.klef.jfsd.sdp.service.EmailVerificationServiceImpl;
+import com.klef.jfsd.sdp.service.ForgotPasswordServiceImpl;
+
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController
+@RequestMapping("/api/emails/forgot-password")
+public class EmailController {
+	
+	@Autowired
+	private ForgotPasswordServiceImpl forgotPasswordService;
+	
+	@PostMapping("/send")
+	public ResponseEntity<ForgotPassword> send(@RequestBody ForgotPassword fp) {
+		String msg = forgotPasswordService.sendMail(fp);
+//		HttpStatus status = 
+		return new ResponseEntity<>(fp, HttpStatus.OK);
+	}
+	
+	@PostMapping("/forgot-password/verify")
+	public String resetPassword(HttpServletRequest request) {
+		String str = request.getParameter("1") + request.getParameter("2");
+		return """
+				<h2>%s</h2
+				""".formatted(str);
+	}
+	
+}
