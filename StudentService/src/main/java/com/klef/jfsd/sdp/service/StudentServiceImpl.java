@@ -8,25 +8,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.klef.jfsd.sdp.model.Teacher;
-import com.klef.jfsd.sdp.repository.TeacherRepository;
+import com.klef.jfsd.sdp.model.Student;
+import com.klef.jfsd.sdp.repository.StudentRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
-	private TeacherRepository teacherRepo;
+	private StudentRepository studentRepo;
 	
 	@Override
-	public Teacher getById(int id) throws EntityNotFoundException {
-		Optional<Teacher> optTeacher = teacherRepo.findById(id);
-		if (optTeacher.isEmpty()) {
+	public Student getById(long id) throws EntityNotFoundException {
+		Optional<Student> optStudent = studentRepo.findById(id);
+		if (optStudent.isEmpty()) {
 			throw new EntityNotFoundException("User not found!");
 		}
 		
-		return optTeacher.get();
+		return optStudent.get();
 	}
 	
 	public String hash(String str) {
@@ -43,30 +43,30 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public String add(Teacher teacher) {
-		if (teacherRepo.findById(teacher.getId()).isPresent() || teacherRepo.findByEmail(teacher.getEmail()) != null) {
-			return "Teacher already exists!";
+	public String add(Student student) {
+		if (studentRepo.findById(student.getId()).isPresent() || studentRepo.findByEmail(student.getEmail()) != null) {
+			return "Student already exists!";
 		}
 		
-		teacher.setPassword(hash(teacher.getPassword()));
-//		teacher.setPassword(teacher.getPassword());
-		teacher.setVerified(false);
+		student.setPassword(hash(student.getPassword()));
+//		student.setPassword(student.getPassword());
+		student.setVerified(false);
 		
-		teacherRepo.save(teacher);
-		return "Teacher added Successfully!";
+		studentRepo.save(student);
+		return "Student added Successfully!";
 	}
 
 	@Override
-	public String login(int id, String password) {
+	public String login(long id, String password) throws EntityNotFoundException {
 		try {
-			Teacher teacher = teacherRepo.findById(id).get();
+			Student student = studentRepo.findById(id).get();
 			
-			if (!teacher.isVerified()) {
+			if (!student.isVerified()) {
 				return "Email not verified!";
 			}
 			
-			if (teacher.getPassword().equals(hash(password))) {
-//			if (teacher.getPassword().equals(password)) {
+			if (student.getPassword().equals(hash(password))) {
+//			if (student.getPassword().equals(password)) {
 				return "Login Successful!";
 			}
 			

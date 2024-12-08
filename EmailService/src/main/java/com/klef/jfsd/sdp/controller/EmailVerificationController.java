@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klef.jfsd.sdp.dto.EmailTokenDto;
 import com.klef.jfsd.sdp.dto.EmailVerificationDTO;
 import com.klef.jfsd.sdp.dto.TokenSuccessDTO;
 import com.klef.jfsd.sdp.model.EmailVerification;
 import com.klef.jfsd.sdp.service.EmailVerificationServiceImpl;
 
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
@@ -42,9 +42,12 @@ public class EmailVerificationController {
 	}
 	
 	@PostMapping("/verify")
-	public ResponseEntity<TokenSuccessDTO> verifyToken(HttpServletRequest request) {
-		String email = request.getParameter("email");
-		String msg = emailVerificationService.verifyToken(email, Integer.valueOf(request.getParameter("token")));
+	public ResponseEntity<TokenSuccessDTO> verifyToken(@RequestBody EmailTokenDto emailTokenDto) {
+		String email = emailTokenDto.getEmail();
+		System.out.println("email: " + email);
+		System.out.println("token: " + emailTokenDto.getToken());
+//		String msg = emailVerificationService.verifyToken(email, Integer.valueOf(request.getParameter("token")));
+		String msg = emailVerificationService.verifyToken(emailTokenDto.getEmail(), emailTokenDto.getToken());
 		
 		HttpStatus status = (msg.equals("Invalid Email!") || msg.equals("Invalid Token!")) ? HttpStatus.UNAUTHORIZED :
 			(msg.equals("Email already verified!") ? HttpStatus.CONFLICT :

@@ -22,10 +22,10 @@ public class AuthController {
 	@Autowired
 	private AuthService authService;
 	
-	@PostMapping("/signup")
-	public ResponseEntity<String> signup(@RequestBody User userReq) {
-		return ResponseEntity.ok(authService.singup(userReq));
-	}
+//	@PostMapping("/signup")
+//	public ResponseEntity<String> signup(@RequestBody User userReq) {
+//		return ResponseEntity.ok(authService.singup(userReq));
+//	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, String>> login(@RequestBody User userReq) {
