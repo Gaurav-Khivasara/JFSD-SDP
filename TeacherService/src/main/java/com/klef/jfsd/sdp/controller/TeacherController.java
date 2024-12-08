@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import com.klef.jfsd.sdp.dto.TeacherDTO;
 import com.klef.jfsd.sdp.model.Teacher;
 import com.klef.jfsd.sdp.service.TeacherServiceImpl;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/teachers")
 public class TeacherController {
@@ -22,21 +24,20 @@ public class TeacherController {
 	@Autowired
 	private TeacherServiceImpl teacherService;
 	
-	@GetMapping("*")
-	public String pageNotFound() {
-		return "<h1>404</h1><h2>Page Not Found!</h2>";
-	}
-	
-	@GetMapping("/")
+	@GetMapping("")
 	public String index() {
 		return "<h2>Teacher API Index</h2>";
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<TeacherDTO> addTeacher(@RequestBody Teacher teacher) throws NoSuchAlgorithmException {
-		String msg = teacherService.addTeacher(teacher);
+	public ResponseEntity<TeacherDTO> add(@RequestBody Teacher teacher) throws NoSuchAlgorithmException {
+		String msg = teacherService.add(teacher);
 		
 		HttpStatus status = msg.equals("Teacher already exists!") ? HttpStatus.CONFLICT : HttpStatus.CREATED;
+		
+		if (!status.equals(HttpStatus.CREATED)) {
+			teacher = null;
+		}
 		
 		return new ResponseEntity<>(new TeacherDTO(teacher, msg), status);
 	}
@@ -73,13 +74,17 @@ public class TeacherController {
 ////				""".formatted(hashedToken);
 //	}
 	
-	@PostMapping("/check-login")
-	public ResponseEntity<TeacherDTO> checkTeacherLogin(@RequestBody Teacher teacher) {
-		String msg = teacherService.checkTeacherLogin(teacher.getId(), teacher.getPassword());
+	@PostMapping("/login")
+	public ResponseEntity<TeacherDTO> login(@RequestBody Teacher teacher) {
+		String msg = teacherService.login(teacher.getId(), teacher.getPassword());
 		
 		HttpStatus status = msg.equals("Email not verified!") ? HttpStatus.FORBIDDEN :
 			(msg.equals("Login Successful!") ? HttpStatus.OK :
 				(msg.equals("Invalid Password!") ? HttpStatus.UNAUTHORIZED : HttpStatus.NOT_FOUND ));
+		
+		if (status.equals(HttpStatus.OK)) {
+			teacher = teacherService.getById(teacher.getId());
+		}
 		
 		return new ResponseEntity<>(new TeacherDTO(teacher, msg), status);
 	}

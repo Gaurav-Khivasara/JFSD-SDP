@@ -6,15 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.klef.jfsd.sdp.dto.EmailTokenPasswordDto;
 import com.klef.jfsd.sdp.dto.ForgotPasswordDTO;
 import com.klef.jfsd.sdp.dto.TokenSuccessDTO;
 import com.klef.jfsd.sdp.model.ForgotPassword;
 import com.klef.jfsd.sdp.service.ForgotPasswordServiceImpl;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -36,10 +34,10 @@ public class ForgotPasswordController {
 	}
 	
 	@PostMapping("/verify")
-	public ResponseEntity<TokenSuccessDTO> verifyToken(@RequestParam String email, @RequestParam String token, HttpServletRequest request) {
-		String password = request.getParameter("password");
+	public ResponseEntity<TokenSuccessDTO> verifyToken(@RequestBody EmailTokenPasswordDto emailTokenPasswordDto) {
+		String email = emailTokenPasswordDto.getEmail();
 		
-		String msg = forgotPasswordService.verifyToken(email, token, password);
+		String msg = forgotPasswordService.verifyToken(email, emailTokenPasswordDto.getToken(), emailTokenPasswordDto.getPassword());
 		
 		HttpStatus status = (msg.equals("Invalid Email!") || msg.equals("Expired token!")) ? HttpStatus.UNAUTHORIZED :
 			(msg.equals("Link already used!") ? HttpStatus.CONFLICT :
