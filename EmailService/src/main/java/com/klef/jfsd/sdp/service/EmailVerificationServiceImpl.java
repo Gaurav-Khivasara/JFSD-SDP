@@ -27,6 +27,7 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 	@Override
 	public String sendMail(EmailVerification emailVerification) {
 		// resend handled!
+		boolean save = true;
 		List<EmailVerification> emailVerificationList = emailVerificationRepo.getByEmail(emailVerification.getUserEmail());
 		if (emailVerificationList.size() != 0) {
 			EmailVerification ev = emailVerificationList.get(emailVerificationList.size() - 1);
@@ -40,6 +41,11 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 			
 			if (LocalDateTime.now().isAfter(ev.getExpiresOn())) {
 				emailVerification.setToken(100000 + new Random().nextInt(900000));
+				emailVerification.setCreatedOn(LocalDateTime.now());
+				emailVerification.setExpiresOn(emailVerification.getCreatedOn().plusHours(1));
+			} else {
+				emailVerification.setId(ev.getId());
+				save = false;
 			}
 		} else {
 			emailVerification.setToken(100000 + new Random().nextInt(900000));
@@ -83,7 +89,10 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 			mimeMsgHelper.setText(msg, true);
 //			javaMailSender.send(mimeMsg);
 			
-			emailVerificationRepo.save(emailVerification);
+			System.out.println(emailVerification);
+			if (save) {
+				emailVerificationRepo.save(emailVerification);
+			}
 			return "Email sent Successfully!";
 		} catch (MessagingException e) {
 			e.printStackTrace();
