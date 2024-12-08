@@ -104,4 +104,10 @@ public class ForgotPassword {
 		this.expiresOn = expiresOn;
 	}
 
+	@Override
+	public String toString() {
+		return "id = " + id + "\ntoken = " + token + "\nuserEmail = " + userEmail + "\nisVerified = "
+				+ isVerified + "\ncreatedOn = " + createdOn + "\nexpiresOn = " + expiresOn;
+	}
+
 }

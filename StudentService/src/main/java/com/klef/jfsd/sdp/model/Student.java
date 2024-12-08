@@ -14,12 +14,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 
 @Entity
-public class Teacher {
+public class Student {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "teacher_seq")
-	@SequenceGenerator(name = "teacher_seq", sequenceName = "teacher_id_seq", initialValue = 1001, allocationSize = 1)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+	@SequenceGenerator(name = "student_seq", sequenceName = "student_id_seq", initialValue = 1000000001, allocationSize = 1)
+	private long id;
 	
 	@Column(nullable = false)
 	private String firstName;
@@ -36,18 +36,18 @@ public class Teacher {
 	@Column(nullable = false)
 	private boolean isVerified;
 	
-	public Teacher() { }
+	public Student() { }
 
-	public Teacher(Teacher teacher) {
-		this.id = teacher.id;
-		this.firstName = teacher.firstName;
-		this.lastName = teacher.lastName;
-		this.email = teacher.email;
-		this.password = teacher.password;
-		this.isVerified = teacher.isVerified;
+	public Student(Student student) {
+		this.id = student.id;
+		this.firstName = student.firstName;
+		this.lastName = student.lastName;
+		this.email = student.email;
+		this.password = student.password;
+		this.isVerified = student.isVerified;
 	}
 
-	public Teacher(int id, String firstName, String lastName, String email, String password, boolean isVerified) {
+	public Student(long id, String firstName, String lastName, String email, String password, boolean isVerified) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -56,11 +56,11 @@ public class Teacher {
 		this.isVerified = isVerified;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -105,7 +105,7 @@ public class Teacher {
 	}
 	
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("TEACHER"));
+		return List.of(new SimpleGrantedAuthority("STUDENT"));
 	}
 
 	@Override

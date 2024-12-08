@@ -4,9 +4,13 @@ import java.security.NoSuchAlgorithmException;
 
 import com.klef.jfsd.sdp.model.Teacher;
 
+import jakarta.persistence.EntityNotFoundException;
+
 public interface TeacherService {
 	
-	String addTeacher(Teacher teacher) throws NoSuchAlgorithmException;
-	String checkTeacherLogin(int id, String password);
+	String add(Teacher teacher) throws NoSuchAlgorithmException;
+	String login(int id, String password);
+	
+	Teacher getById(int id) throws EntityNotFoundException;
 
 }
