@@ -96,7 +96,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 			mimeMsgHelper.setSubject("Password Reset");
 			mimeMsgHelper.setTo(forgotPassword.getUserEmail());
 			mimeMsgHelper.setText(msg, true);
-//			javaMailSender.send(mimeMsg);
+			javaMailSender.send(mimeMsg);
 			
 			forgotPasswordRepo.save(forgotPassword);
 			return "Email sent Successfully!";
