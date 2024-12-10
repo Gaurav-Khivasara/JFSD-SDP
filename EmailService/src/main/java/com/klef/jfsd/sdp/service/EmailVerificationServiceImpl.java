@@ -87,7 +87,7 @@ public class EmailVerificationServiceImpl implements EmailVerificationService {
 			mimeMsgHelper.setSubject("Email Verification");
 			mimeMsgHelper.setTo(emailVerification.getUserEmail());
 			mimeMsgHelper.setText(msg, true);
-//			javaMailSender.send(mimeMsg);
+			javaMailSender.send(mimeMsg);
 			
 			System.out.println(emailVerification);
 			if (save) {
