@@ -1,5 +1,4 @@
-EmailService/src/main/resources
-EmailService/.env
+.env
 
 # Compiled class file
 *.class
