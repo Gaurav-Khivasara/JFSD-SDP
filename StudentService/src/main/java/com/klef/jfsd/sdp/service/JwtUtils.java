@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtUtils {
 	
-	@Value("${jwtSecretKey}")
+	@Value("${spring.application.security.jwt.secretKey}")
 	private String secretKey;
 	
 	private Claims extractAllClaimsFromToken(String token) {
