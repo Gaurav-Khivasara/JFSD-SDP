@@ -17,7 +17,8 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtUtils {
 	
-	private final String secretKey = "jwtSecretKey1234jwtSecretKey1234jwtSecretKey1234";
+	@Value("${jwtSecretKey}")
+	private String secretKey;
 	
 	private Claims extractAllClaimsFromToken(String token) {
 		return Jwts.parser()
