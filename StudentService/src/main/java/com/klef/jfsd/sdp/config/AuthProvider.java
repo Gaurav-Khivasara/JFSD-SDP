@@ -39,7 +39,7 @@ public class AuthProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Invalid password!");
 		} 
 		
-		return new UsernamePasswordAuthenticationToken(id, password, List.of(new SimpleGrantedAuthority("TEACHER")));
+		return new UsernamePasswordAuthenticationToken(id, password, List.of(new SimpleGrantedAuthority("STUDENT")));
 	}
 
 	@Override
